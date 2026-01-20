@@ -5,11 +5,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Import your screens
 import MainScreen from './mainpage'; 
 import RegisterScreen from './registerpage';
+import LoginScreen from './loginpage';
 
 // 1. Define the screen names and their params for TypeScript
 export type RootStackParamList = {
   Home: undefined;
   Register: undefined;
+  Login: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -23,6 +25,7 @@ export default function App() {
       >
         <Stack.Screen name="Home" component={MainScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

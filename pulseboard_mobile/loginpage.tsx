@@ -17,10 +17,9 @@ import { RootStackParamList } from './App'; // Adjust path based on your file st
 const { width, height } = Dimensions.get('window');
 const PRIMARY_PURPLE = '#8A56F1';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-const RegisterScreen: React.FC<Props> = ({ navigation }) => {
-  const [name, setName] = useState('');
+const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -34,7 +33,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
           </TouchableOpacity>
         </SafeAreaView>
         <View style={styles.logoWrapper}>
-          <Text style={styles.headerTitle}>Create Account</Text>
+          <Text style={styles.headerTitle}>Login To Your Account</Text>
         </View>
       </View>
 
@@ -50,15 +49,6 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
       {/* Input Form Section */}
       <View style={styles.formContainer}>
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Full Name</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="John Doe" 
-            value={name}
-            onChangeText={setName}
-          />
-        </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Email Address</Text>
@@ -85,14 +75,14 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
         <TouchableOpacity 
           style={styles.registerButton}
-          onPress={() => console.log('Registering user...')}
+          onPress={() => console.log('Logging user...')}
         >
-          <Text style={styles.registerButtonText}>Sign Up</Text>
+          <Text style={styles.registerButtonText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Text style={styles.footerText}>
-            Already have an account? <Text style={styles.linkText}>Login</Text>
+            Doesn't have an account? <Text style={styles.linkText}>Login</Text>
           </Text>
         </TouchableOpacity>
       </View>
@@ -187,4 +177,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default LoginScreen;
