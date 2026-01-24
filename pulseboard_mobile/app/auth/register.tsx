@@ -1,99 +1,69 @@
-import React, { useState } from "react";
-import { registerUser } from "../../src/services/auth.service";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  TextInput,
-} from "react-native";
-import Svg, { Path } from "react-native-svg";
-import { router } from "expo-router";
-
-const { width, height } = Dimensions.get("window");
-const PRIMARY_PURPLE = "#8A56F1";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, SafeAreaView, TextInput, StatusBar } from 'react-native';
+import { router } from 'expo-router';
 
 export default function RegisterScreen() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleRegister = async () => {
-    try {
-      if (!name || !email || !password) {
-        alert("All fields are required!");
-        return;
-      }
-
-      await registerUser({ name, email, password });
-
-      alert("Account created successfully");
-      router.replace("/auth/login");
-    } catch (err: any) {
-      alert(err?.response?.data?.message || "Signup Failed");
+  const handleRegister = () => {
+    if (name && email && password) {
+      router.replace('/tabs/home');
+    } else {
+      console.log('Please fill in all fields');
     }
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 bg-black">
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
+
       {/* Header */}
-      <View
-        style={{ height: height * 0.25, backgroundColor: PRIMARY_PURPLE }}
-        className="justify-center items-center"
-      >
-        <View className="absolute top-10 left-3">
-          <TouchableOpacity onPress={() => router.back()} className="p-2">
-            <Text className="text-white text-base font-semibold">
-              {"<"} Back
+      <View className="h-[30vh] bg-black justify-center items-center border-b-2 border-cyber-green/30">
+        <SafeAreaView className="absolute top-5 left-5">
+          <TouchableOpacity onPress={() => router.back()}>
+            <Text className="text-cyber-green text-base font-bold">
+              ← BACK
             </Text>
           </TouchableOpacity>
+        </SafeAreaView>
+
+        <View className="items-center">
+          <Text className="text-cyber-green text-[34px] font-black tracking-wide">
+            REGISTER
+          </Text>
+          <Text className="text-cyber-cyan text-sm mt-2 tracking-widest">
+            CREATE NEW ACCOUNT
+          </Text>
         </View>
-
-        <Text className="text-white text-3xl font-bold mt-6">
-          Create Account
-        </Text>
-      </View>
-
-      {/* Wave */}
-      <View className="-mt-1">
-        <Svg
-          height="120"
-          width={width}
-          viewBox={`0 0 ${width} 120`}
-          preserveAspectRatio="none"
-        >
-          <Path
-            fill={PRIMARY_PURPLE}
-            d={`M0,0 L${width},0 L${width},40 C${
-              width * 0.8
-            },120 ${width * 0.2},120 0,40 Z`}
-          />
-        </Svg>
       </View>
 
       {/* Form */}
-      <View className="flex-1 px-8 pt-5">
+      <View className="flex-1 px-8 pt-10">
         {/* Name */}
-        <View className="mb-5">
-          <Text className="text-sm text-gray-500 mb-2 font-semibold">
-            Full Name
+        <View className="mb-6">
+          <Text className="text-[12px] text-cyber-cyan mb-2 font-bold tracking-widest">
+            FULL NAME
           </Text>
           <TextInput
-            className="h-12 bg-gray-100 rounded-xl px-4 text-base text-gray-800"
+            className="h-[54px] bg-cyber-green/5 border border-cyber-green/30 rounded-xl px-5 text-base text-white"
             placeholder="John Doe"
+            placeholderTextColor="#666"
             value={name}
             onChangeText={setName}
           />
         </View>
 
         {/* Email */}
-        <View className="mb-5">
-          <Text className="text-sm text-gray-500 mb-2 font-semibold">
-            Email Address
+        <View className="mb-6">
+          <Text className="text-[12px] text-cyber-cyan mb-2 font-bold tracking-widest">
+            EMAIL ADDRESS
           </Text>
           <TextInput
-            className="h-12 bg-gray-100 rounded-xl px-4 text-base text-gray-800"
+            className="h-[54px] bg-cyber-green/5 border border-cyber-green/30 rounded-xl px-5 text-base text-white"
             placeholder="example@mail.com"
+            placeholderTextColor="#666"
             keyboardType="email-address"
             autoCapitalize="none"
             value={email}
@@ -102,13 +72,14 @@ export default function RegisterScreen() {
         </View>
 
         {/* Password */}
-        <View className="mb-5">
-          <Text className="text-sm text-gray-500 mb-2 font-semibold">
-            Password
+        <View className="mb-8">
+          <Text className="text-[12px] text-cyber-cyan mb-2 font-bold tracking-widest">
+            PASSWORD
           </Text>
           <TextInput
-            className="h-12 bg-gray-100 rounded-xl px-4 text-base text-gray-800"
+            className="h-[54px] bg-cyber-green/5 border border-cyber-green/30 rounded-xl px-5 text-base text-white"
             placeholder="••••••••"
+            placeholderTextColor="#666"
             secureTextEntry
             value={password}
             onChangeText={setPassword}
@@ -117,20 +88,19 @@ export default function RegisterScreen() {
 
         {/* Button */}
         <TouchableOpacity
-          style={{ backgroundColor: PRIMARY_PURPLE }}
-          className="h-14 rounded-2xl justify-center items-center mt-5 shadow-lg"
+          className="bg-cyber-green h-14 rounded-full justify-center items-center mt-2"
           onPress={handleRegister}
         >
-          <Text className="text-white text-lg font-bold">Sign Up</Text>
+          <Text className="text-black text-base font-black tracking-widest">
+            SIGN UP
+          </Text>
         </TouchableOpacity>
 
         {/* Footer */}
-        <TouchableOpacity onPress={() => router.push("/auth/login")}>
-          <Text className="text-center mt-6 text-gray-500 text-sm">
-            Already have an account?{" "}
-            <Text style={{ color: PRIMARY_PURPLE }} className="font-bold">
-              Login
-            </Text>
+        <TouchableOpacity onPress={() => router.push('/auth/login')}>
+          <Text className="text-center mt-6 text-neutral-300 text-sm">
+            Already have an account?{' '}
+            <Text className="text-cyber-green font-bold">LOGIN</Text>
           </Text>
         </TouchableOpacity>
       </View>
