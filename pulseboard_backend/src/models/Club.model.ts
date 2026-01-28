@@ -1,14 +1,20 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface IClub extends Document {
+  clubId: number;
   name: string;
   description: string;
   category: "Technical" | "Cultural" | "Literary" | "Other";
-  followers: mongoose.Types.ObjectId[];
+  followers: number[];
 }
 
 const ClubSchema: Schema = new Schema(
   {
+    clubId: {
+      type: Number,
+      unique: true,
+      required: true
+    },
     name: {
       type: String,
       required: true,
@@ -21,13 +27,12 @@ const ClubSchema: Schema = new Schema(
     },
     category: {
       type: String,
-      enum: ["Technical", "Cultural", "Sports", "Literary", "Other"],
+      enum: ["Technical", "Cultural", "Literary", "Other"],
       required: true,
     },
     followers: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: Number,
       },
     ],
   },
